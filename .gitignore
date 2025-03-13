@@ -1,0 +1,6 @@
+back/node_modules
+back/dist
+back/coverage
+back/test-results
+back/database.sqlite
+back/.env
