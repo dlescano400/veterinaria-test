@@ -4,3 +4,8 @@ back/coverage
 back/test-results
 back/database.sqlite
 back/.env
+front/node_modules
+front/build
+front/coverage
+front/test-results
+front/.env

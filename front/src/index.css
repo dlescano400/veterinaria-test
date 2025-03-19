@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-theme: rgba(116, 212, 255, 1);
+}
+
+.text-color-primary {
+  color: var(--color-primary-theme);
+}
