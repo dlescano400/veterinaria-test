@@ -23,11 +23,7 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
   };
 
   return (
-    <div className="p-5 bg-white rounded shadow-md w-96">
-      <h2 className="text-xl font-bold mb-4">Crear Usuario</h2>
-      {success && <p className="text-green-600">¡Usuario creado con éxito!</p>}
-      {error && <p className="text-red-600">{error}</p>}
-
+    <div className="p-5 bg-white rounded shadow-md w-full z-50">
       <form onSubmit={handleSubmit} className="space-y-3">
         <input type="text" name="firstName" placeholder="Nombre" value={form.firstName} onChange={handleChange} className="w-full p-2 border rounded" required />
         <input type="text" name="lastName" placeholder="Apellido" value={form.lastName} onChange={handleChange} className="w-full p-2 border rounded" required />
@@ -37,6 +33,8 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
           {loading ? "Enviando..." : "Crear Usuario"}
         </button>
       </form>
+      {success && <p className="text-green-600">¡Usuario creado con éxito!</p>}
+      {error && <p className="text-red-600">{error}</p>}
     </div>
   );
 }
