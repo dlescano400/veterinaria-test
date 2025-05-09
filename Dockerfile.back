@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copiamos solo los package*.json desde back/
+COPY back/package*.json ./
+
+COPY back/. .
+
+COPY . .
+
+RUN npm run build && ls -la dist
+
+EXPOSE 3001
+
+CMD ["npm", "start"]

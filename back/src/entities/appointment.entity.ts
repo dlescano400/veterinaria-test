@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+} from "typeorm";
 import { Pet } from "./pet.entity";
 import { Veterinarian } from "./veterinarian.entity";
 import { Consultation } from "./consultation.entity";
 
-export type AppointmentStatus = 'pending' | 'confirmed' | 'canceled';
+export type AppointmentStatus = "pending" | "confirmed" | "canceled";
 
 @Entity()
 export class Appointment {
@@ -13,19 +19,19 @@ export class Appointment {
   @Column()
   dateTime: Date;
 
-  @ManyToOne(() => Pet, pet => pet.appointments)
+  @ManyToOne(() => Pet, (pet) => pet.appointments)
   pet: Pet;
 
-  @ManyToOne(() => Veterinarian, veterinarian => veterinarian.appointments)
+  @ManyToOne(() => Veterinarian, (veterinarian) => veterinarian.appointments)
   veterinarian: Veterinarian;
 
   @Column({
-    type: 'text',
+    type: "text",
     nullable: false,
-    default: 'pending'
+    default: "pending",
   })
   status: AppointmentStatus;
 
-  @OneToOne(() => Consultation, consultation => consultation.appointment)
+  @OneToOne(() => Consultation, (consultation) => consultation.appointment)
   consultation: Consultation;
 }

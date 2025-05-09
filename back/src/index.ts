@@ -1,21 +1,21 @@
-import "reflect-metadata"
-import express from "express"
-import cors from "cors"
-import { AppDataSource } from "./data-source"
-import { setupSwagger } from "./config/swagger"
-import UserRouter from "./routes/user.router"
-import PetRouter from "./routes/pet.router"
-import VeterinarianRouter from "./routes/veterinarian.routes"
-import ConsultationRouter from "./routes/consultation.router"
-import InvoiceRouter from "./routes/invoice.router"
-import AppointmentRouter from "./routes/appointment.router"
+import "reflect-metadata";
+import express from "express";
+import cors from "cors";
+import { AppDataSource } from "./data-source";
+import { setupSwagger } from "./config/swagger";
+import UserRouter from "./routes/user.router";
+import PetRouter from "./routes/pet.router";
+import VeterinarianRouter from "./routes/veterinarian.routes";
+import ConsultationRouter from "./routes/consultation.router";
+import InvoiceRouter from "./routes/invoice.router";
+import AppointmentRouter from "./routes/appointment.router";
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001;
 
 // Routes
 app.get("/api", (req, res) => {
@@ -33,11 +33,11 @@ setupSwagger(app);
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("Data Source has been initialized!")
+    console.log("📦 Conectado a PostgresSQL");
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`)
-    })
+      console.log(`Server is running on port ${PORT}`);
+    });
   })
   .catch((err) => {
-    console.error("Error during Data Source initialization:", err)
-  })
+    console.error("❌ Error al conectar a PostgresSQL:", err);
+  });
