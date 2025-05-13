@@ -1,14 +1,46 @@
 import { Table } from "../component/Table";
-import { useFetch } from "../hooks/useFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drawer } from "../component/Drawer";
 import CreateUserForm from "../component/FormsUser";
-const api = import.meta.env.VITE_API_URL;
+import userStore from "../store/userStore";
 
 export default function Users() {
-  const { data, loading, error, refetch } = useFetch(`${api}/users`);
-  const columns = ["firstName", "lastName", "email", "phone"];
+  const store = userStore();
+  const { users, isLoggedIn, error, fetchUser, deleteUser } = store;
+
+  const columns = ["firstName", "lastName", "email", "phone", "actions"];
+  const columnsNames = [
+    { key: "firstName", label: "Nombre" },
+    { key: "lastName", label: "Apellido" },
+    { key: "email", label: "Email" },
+    { key: "phone", label: "Teléfono" },
+    { key: "actions", label: " " },
+  ];
+
+  const handleDelete = async (userId: number) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+      await deleteUser(userId);
+    }
+  };
+
+  const buttonsActions = (user: any) => {
+    return (
+      <div className="flex gap-2">
+        <button
+          onClick={() => handleDelete(user.id)}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+        >
+          Eliminar
+        </button>
+      </div>
+    );
+  };
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   return (
     <div className="flex gap-4 flex-col h-full relative">
@@ -22,10 +54,15 @@ export default function Users() {
         </button>
       </div>
       <div className="flex-1">
-        {loading ? (
+        {isLoggedIn ? (
           <p>Loading...</p>
         ) : (
-          <Table columns={columns} rows={data ? data : []} />
+          <Table
+            columnsNames={columnsNames}
+            columns={columns}
+            rows={users || []}
+            actions={buttonsActions}
+          />
         )}
         {error && <p>{error}</p>}
       </div>
@@ -56,7 +93,6 @@ export default function Users() {
           </div>
           <CreateUserForm
             onSuccess={() => {
-              refetch();
               setIsDrawerOpen(false);
             }}
           />

@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { useCreateUser } from "../hooks/useCreateUser";
-const api = import.meta.env.VITE_API_URL;
+import userStore from "../store/userStore";
 
-interface CreateUserFormProps {
-  onSuccess: () => void;
-}
-
-export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
-  const { createUser, loading, error, success } = useCreateUser(`${api}/users`);
+export default function CreateUserForm() {
+  const store = userStore();
+  const { createUser, error } = store;
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -15,15 +11,20 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
     phone: "",
   });
 
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const result = await createUser(form);
     if (result) {
-      onSuccess();
+      setSuccess(true);
+      setLoading(false);
       setForm({ firstName: "", lastName: "", email: "", phone: "" });
     }
   };
