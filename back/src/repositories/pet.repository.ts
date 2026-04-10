@@ -14,6 +14,12 @@ export class PetRepository extends BaseRepository<Pet> {
         });
     }
 
+    async findWithOwner(): Promise<Pet[]> {
+        return this.repository.find({
+            relations: ['user']
+        });
+    }
+
     async findWithAppointments(id: string): Promise<Pet | null> {
         return this.repository.findOne({
             where: { id },

@@ -1,34 +1,54 @@
-import { Table } from "../component/Table";
+import { Table } from "../component/Table/Table";
+import { TableRow } from "../component/Table/TableRow";
+import { Column } from "../component/Table/types";
+
 import { useEffect, useState } from "react";
 import { Drawer } from "../component/Drawer";
-import CreateUserForm from "../component/FormsUser";
+
 import userStore from "../store/userStore";
+import { useDrawerStore } from "../store/useDrawerStore";
+import { User } from "../types";
+import { toastSuccess, toastError } from "../utils/toast";
 
 export default function Users() {
   const store = userStore();
+  const drawerStore = useDrawerStore();
+  const { setEditingData } = drawerStore;
   const { users, isLoggedIn, error, fetchUser, deleteUser } = store;
 
-  const columns = ["firstName", "lastName", "email", "phone", "actions"];
-  const columnsNames = [
+  const columns: Column<User>[] = [
     { key: "firstName", label: "Nombre" },
     { key: "lastName", label: "Apellido" },
-    { key: "email", label: "Email" },
     { key: "phone", label: "Teléfono" },
-    { key: "actions", label: " " },
+    { key: "email", label: "Correo" },
   ];
 
-  const handleDelete = async (userId: number) => {
+  const handleDelete = async (userId: string) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-      await deleteUser(userId);
+      try {
+        await deleteUser(userId);
+        toastSuccess("Usuario eliminado correctamente");
+      } catch (err: any) {
+        toastError(err?.message || "Error al eliminar");
+      }
     }
   };
 
-  const buttonsActions = (user: any) => {
+  const buttonsActions = (user: User) => {
     return (
-      <div className="flex gap-2">
+      <div className="flex gap-4 justify-end">
+        <button
+          onClick={() => {
+            setIsDrawerOpen(true);
+            setEditingData(user);
+          }}
+          className="text-pink-400 hover:text-pink-300 hover:underline transition-colors text-sm font-medium"
+        >
+          Editar
+        </button>
         <button
           onClick={() => handleDelete(user.id)}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          className="text-red-400 hover:text-red-300 hover:underline transition-colors text-sm font-medium"
         >
           Eliminar
         </button>
@@ -45,10 +65,10 @@ export default function Users() {
   return (
     <div className="flex gap-4 flex-col h-full relative">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
+        <h1 className="text-2xl font-bold text-pink-400">Usuarios</h1>
         <button
           onClick={() => setIsDrawerOpen(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-200"
         >
           Nuevo Usuario
         </button>
@@ -57,47 +77,22 @@ export default function Users() {
         {isLoggedIn ? (
           <p>Loading...</p>
         ) : (
-          <Table
-            columnsNames={columnsNames}
-            columns={columns}
-            rows={users || []}
-            actions={buttonsActions}
-          />
+          <Table columns={columns} includeActions>
+            {users.map((u, i) => (
+              <TableRow
+                key={u.id}
+                data={u}
+                columns={columns}
+                actions={buttonsActions(u)}
+                index={i}
+              />
+            ))}
+          </Table>
         )}
         {error && <p>{error}</p>}
       </div>
 
-      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <div className="h-full p-6 overflow-y-auto">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold">Crear Usuario</h2>
-            <button
-              onClick={() => setIsDrawerOpen(false)}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <CreateUserForm
-            onSuccess={() => {
-              setIsDrawerOpen(false);
-            }}
-          />
-        </div>
-      </Drawer>
+      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </div>
   );
 }

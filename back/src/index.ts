@@ -33,7 +33,7 @@ setupSwagger(app);
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("📦 Conectado a PostgresSQL");
+    console.log("📦 Conectado a SQLite");
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

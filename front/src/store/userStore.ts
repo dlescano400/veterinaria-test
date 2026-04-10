@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-const api = import.meta.env.VITE_API_URL;
+import { User } from "../types";
 
-type User = Record<string, unknown>; // Replace with your actual User type if available
+const api = import.meta.env.VITE_API_URL;
 
 interface UserStoreState {
   users: User[];
@@ -23,7 +23,7 @@ type Action = {
   fetUsers: () => Promise<void>;
   createUser: (user: User) => Promise<unknown>;
   updateUser: (user: User) => Promise<void>;
-  deleteUser: (userId: number) => Promise<void>;
+  deleteUser: (userId: string) => Promise<void>;
 };
 
 const userStore = create<UserStoreState & Action>()(
@@ -47,64 +47,57 @@ const userStore = create<UserStoreState & Action>()(
       },
 
       createUser: async (user) => {
-        try {
-          const response = await fetch(`${api}/users`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          });
-          if (!response.ok) {
-            throw new Error("Failed to create user");
-          }
-          const newUser = await response.json();
-          set((state) => ({
-            users: [...state.users, newUser],
-          }));
-          return newUser;
-        } catch (error) {
-          set({ error: (error as Error).message });
+        const response = await fetch(`${api}/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || "Error al crear usuario");
         }
+        set((state) => ({
+          users: [...state.users, data],
+          error: null,
+        }));
+        return data;
       },
 
       updateUser: async (user) => {
-        try {
-          const response = await fetch(`${api}/users/${user.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          });
-          if (!response.ok) {
-            throw new Error("Failed to update user");
-          }
-          const updatedUser = await response.json();
-          set((state) => ({
-            users: state.users.map((u) =>
-              u.id === updatedUser.id ? updatedUser : u
-            ),
-          }));
-        } catch (error) {
-          set({ error: (error as Error).message });
+        const response = await fetch(`${api}/users/${user.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || "Error al actualizar usuario");
         }
+        set((state) => ({
+          users: state.users.map((u) =>
+            u.id === data.id ? data : u
+          ),
+          error: null,
+        }));
+        return data;
       },
 
       deleteUser: async (userId) => {
-        try {
-          const response = await fetch(`${api}/users/${userId}`, {
-            method: "DELETE",
-          });
-          if (!response.ok) {
-            throw new Error("Failed to delete user");
-          }
-          set((state) => ({
-            users: state.users.filter((user) => user.id !== userId),
-          }));
-        } catch (error) {
-          set({ error: (error as Error).message });
+        const response = await fetch(`${api}/users/${userId}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.message || "Error al eliminar usuario");
         }
+        set((state) => ({
+          users: state.users.filter((user) => user.id !== userId),
+          error: null,
+        }));
       },
     }),
     // Adding the devtools middleware

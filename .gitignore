@@ -3,6 +3,7 @@ back/dist
 back/coverage
 back/test-results
 back/database.sqlite
+back/veterinaria.db
 back/.env
 front/node_modules
 front/build
