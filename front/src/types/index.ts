@@ -15,3 +15,38 @@ export interface Pet {
   userId: string;
   user?: User;
 }
+
+export interface Veterinarian {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  specialty: string;
+  email: string;
+  phone: string;
+}
+
+export type AppointmentStatus = 'pending' | 'confirmed' | 'canceled';
+
+export interface Appointment {
+  id?: string;
+  dateTime: Date;
+  petId: string;
+  veterinarianId: string;
+  status: AppointmentStatus;
+  pet?: Pet;
+  veterinarian?: Veterinarian;
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  color?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  textColor?: string;
+  extendedProps?: {
+    appointment: Appointment;
+  };
+}

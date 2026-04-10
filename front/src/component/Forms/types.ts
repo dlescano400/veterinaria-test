@@ -1,6 +1,6 @@
 export type Field<T> = {
   name: keyof T;
   label: string;
-  type: "text" | "email" | "number" | "select" | "date";
-  options?: { value: string; label: string }[]; // para selects
+  type: "text" | "email" | "number" | "select" | "date" | "datetime-local";
+  options?: { value: string; label: string }[];
 };

@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import UserFormPage from "./UserForm";
 import PetFormPage from "./PetForm";
+import AppointmentFormPage from "./AppointmentForm";
 import { useDrawerStore } from "../store/useDrawerStore";
 
 interface DrawerComponentProps {
@@ -31,7 +32,7 @@ const DRAWER_CONTENT: {
     editTitle: "Editar Mascota",
   },
   "/appointments": {
-    component: () => <div className="text-gray-300 mt-10">Formulario de Cita</div>,
+    component: AppointmentFormPage,
     createTitle: "Nueva Cita",
     editTitle: "Editar Cita",
   },

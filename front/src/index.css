@@ -1,9 +1,501 @@
 @import "tailwindcss";
 
+@source "../node_modules/@ilamy/calendar/dist";
+
 @theme {
   --color-primary-theme: rgba(116, 212, 255, 1);
+  --color-pink-accent: #ff69b4;
+  --color-popover: #1e1e38;
+  --color-popover-foreground: white;
+  --color-background: #1e1e38;
+  --color-foreground: white;
+  --color-accent: rgba(255, 105, 180, 0.3);
+  --color-accent-foreground: white;
 }
 
 .text-color-primary {
   color: var(--color-primary-theme);
+}
+
+.pink-glow {
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+}
+
+:root {
+  --rdp-accent-color: #ff69b4;
+  --rdp-background-color: rgba(255, 105, 180, 0.2);
+}
+
+.ilamy-calendar {
+  color: white !important;
+  background: transparent !important;
+  --tw-text-opacity: 1;
+}
+
+.ilamy-calendar > div {
+  background: transparent !important;
+  color: white !important;
+}
+
+.ilamy-calendar .rdp {
+  color: white !important;
+  background: transparent !important;
+  margin: 0;
+}
+
+.ilamy-calendar div {
+  background: transparent !important;
+  color: white !important;
+  border-color: rgba(255, 105, 180, 0.3) !important;
+}
+
+.ilamy-calendar .rdp-month {
+  background: transparent !important;
+}
+
+.ilamy-calendar .rdp-table {
+  width: 100%;
+  background: transparent !important;
+}
+
+.ilamy-calendar .rdp-months {
+  background: transparent !important;
+}
+
+.ilamy-calendar .rdp-caption {
+  color: #ff69b4 !important;
+  font-weight: bold;
+}
+
+.ilamy-calendar .rdp-nav {
+  color: #ff69b4 !important;
+}
+
+.ilamy-calendar .rdp-head_cell {
+  color: #ff69b4 !important;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 105, 180, 0.3) !important;
+}
+
+.ilamy-calendar .rdp-cell {
+  color: white !important;
+  border: 1px solid rgba(255, 105, 180, 0.2) !important;
+  background: transparent !important;
+}
+
+.ilamy-calendar .rdp-day {
+  color: white !important;
+  background: transparent !important;
+}
+
+.ilamy-calendar .rdp-button:not([disabled]):hover {
+  background-color: rgba(255, 105, 180, 0.3) !important;
+  color: white !important;
+}
+
+.ilamy-calendar .rdp-day_selected {
+  background-color: #ff69b4 !important;
+  color: white !important;
+}
+
+.ilamy-calendar .rdp-day_today {
+  color: #ff69b4 !important;
+  font-weight: bold;
+}
+
+.ilamy-calendar .rdp-day_outside {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ilamy-calendar .rdp-day_disabled {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.ilamy-calendar .ilamy-event {
+  background-color: rgba(255, 105, 180, 0.8);
+  color: white;
+  border-radius: 4px;
+}
+
+.ilamy-calendar [data-state="open"].animate-in,
+.ilamy-calendar [data-state="open"].fixed,
+dialog[open],
+[data-state="open"].rounded-lg {
+  background-color: #1e1e38 !important;
+  background: #1e1e38 !important;
+}
+
+.ilamy-calendar [role="dialog"],
+.ilamy-calendar dialog,
+.ilamy-calendar .fixed {
+  background-color: #1e1e38 !important;
+  border: 2px solid #ff69b4 !important;
+  border-radius: 12px;
+  color: white !important;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+}
+
+.ilamy-calendar .rounded-lg {
+  background-color: #1e1e38 !important;
+}
+
+.ilamy-calendar .shadow-lg {
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4) !important;
+}
+
+.bg-background {
+  background-color: #1e1e38 !important;
+  background: #1e1e38 !important;
+}
+
+.bg-background * {
+  color: white !important;
+}
+
+.bg-background h1,
+.bg-background h2,
+.bg-background h3,
+.bg-background h4,
+.bg-background p,
+.bg-background span,
+.bg-background label,
+.bg-background input,
+.bg-background select,
+.bg-background textarea,
+.bg-background button,
+.bg-background [role="button"],
+.bg-background div {
+  color: white !important;
+}
+
+.bg-background .text-sm,
+.bg-background .text-lg,
+.bg-background .text-muted-foreground {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+.bg-background .placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.bg-background [data-slot="select"],
+.bg-background [data-slot="select-trigger"],
+.bg-background select,
+.bg-background .rdp .rdp-dropdowns,
+.bg-background .rdp-dropdown_root {
+  background-color: #16162a !important;
+  border-color: rgba(255, 105, 180, 0.5) !important;
+}
+
+.bg-background [data-slot="select-content"],
+.bg-background [data-slot="popover-content"],
+.bg-background .rdp-dropdown_root > div,
+.bg-background [role="listbox"] {
+  background-color: #1e1e38 !important;
+  border: 1px solid rgba(255, 105, 180, 0.5) !important;
+  color: white !important;
+}
+
+.bg-background [role="option"],
+.bg-background [data-slot="select-item"] {
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.bg-background [role="option"]:hover,
+.bg-background [role="option"][data-highlighted],
+.bg-background [data-slot="select-item"]:hover {
+  background-color: rgba(255, 105, 180, 0.3) !important;
+  color: white !important;
+}
+
+.bg-background .flex.max-h-60,
+.bg-background [role="listbox"],
+.bg-background [role="listbox"] > div {
+  background-color: #1e1e38 !important;
+  border: 1px solid rgba(255, 105, 180, 0.5) !important;
+  color: white !important;
+}
+
+.bg-background .max-h-60 > div,
+.bg-background .max-h-60 span,
+.bg-background .max-h-60 button {
+  background-color: #1e1e38 !important;
+  color: white !important;
+}
+
+.bg-background .max-h-60 button:hover {
+  background-color: rgba(255, 105, 180, 0.3) !important;
+}
+
+.bg-popover,
+.bg-popover * {
+  background-color: #1e1e38 !important;
+  color: #ff69b4 !important;
+}
+
+.text-popover-foreground,
+.text-popover-foreground * {
+  color: #ff69b4 !important;
+}
+
+.bg-popover button:hover,
+.hover\:bg-accent:hover {
+  background-color: rgba(255, 105, 180, 0.5) !important;
+  color: white !important;
+}
+
+.bg-popover button {
+  color: #ff69b4 !important;
+}
+
+.bg-popover {
+  border: 1px solid #ff69b4 !important;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.3) !important;
+}
+
+.bg-background [data-state="open"],
+.bg-background [data-state="open"] * {
+  background-color: #1e1e38 !important;
+}
+
+.bg-background [data-side],
+.bg-background [data-side] * {
+  background-color: #1e1e38 !important;
+  border-color: rgba(255, 105, 180, 0.5) !important;
+}
+
+.bg-background [data-popper-escaped],
+.bg-background [data-popper-escaped] * {
+  background-color: #1e1e38 !important;
+}
+
+.ilamy-calendar [data-state="open"],
+.ilamy-calendar [data-state="open"] > div {
+  background-color: #1e1e38 !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root,
+.ilamy-calendar .rdp-dropdown_root > div {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root select {
+  background-color: transparent !important;
+  color: #ff69b4 !important;
+  border: none !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  padding: 4px 8px !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root select:hover {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.ilamy-calendar [data-testid="calendar-month-button"],
+.ilamy-calendar [data-testid="calendar-year-button"],
+.ilamy-calendar .rdp-button[data-slot="popover-trigger"] {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ff69b4 !important;
+  font-weight: bold !important;
+}
+
+.ilamy-calendar [data-testid="calendar-month-button"]:hover,
+.ilamy-calendar [data-testid="calendar-year-button"]:hover,
+.ilamy-calendar .rdp-button[data-slot="popover-trigger"]:hover {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.ilamy-calendar [data-testid="calendar-month-button"] > div,
+.ilamy-calendar [data-testid="calendar-year-button"] > div {
+  color: #ff69b4 !important;
+  font-weight: bold !important;
+}
+
+.ilamy-calendar [class*="event"],
+.ilamy-calendar [class*="event"] * {
+  opacity: 1 !important;
+  filter: saturate(1.2) !important;
+}
+
+.ilamy-calendar .bg-pink-400,
+.ilamy-calendar .bg-pink-500,
+.ilamy-calendar .bg-pink-200,
+.ilamy-calendar [style*="background"] {
+  filter: saturate(1.5) brightness(1.1) !important;
+}
+
+.ilamy-calendar [data-event],
+.ilamy-calendar [data-event] > div,
+.ilamy-calendar .bg-primary\/10 {
+  background-color: #ff69b4 !important;
+  opacity: 1 !important;
+}
+
+.ilamy-calendar [class*="rdp-day"] span,
+.ilamy-calendar .rdp-event {
+  background-color: #ff69b4 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5) !important;
+  border: 1px solid #ff69b4 !important;
+}
+
+.ilamy-calendar .rdp-event:hover {
+  background-color: #ff5aa0 !important;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.7) !important;
+}
+
+.bg-blue-100.text-blue-800,
+.bg-blue-200.text-blue-900,
+.bg-red-100.text-red-800,
+.bg-red-200.text-red-900,
+.bg-yellow-100.text-yellow-800,
+.bg-yellow-200.text-yellow-900,
+.bg-green-100.text-green-800,
+.bg-green-200.text-green-900,
+.bg-purple-100.text-purple-800,
+.bg-purple-200.text-purple-900,
+.bg-pink-100.text-pink-800,
+.bg-pink-200.text-pink-900,
+.bg-indigo-100.text-indigo-800,
+.bg-indigo-200.text-indigo-900,
+.bg-gray-100.text-gray-800,
+.bg-gray-200.text-gray-900,
+.bg-orange-100.text-orange-800,
+.bg-orange-200.text-orange-900,
+.bg-teal-100.text-teal-800,
+.bg-teal-200.text-teal-900,
+.bg-cyan-100.text-cyan-800,
+.bg-cyan-200.text-cyan-900,
+.bg-rose-100.text-rose-800,
+.bg-rose-200.text-rose-900,
+.bg-violet-100.text-violet-800,
+.bg-violet-200.text-violet-900,
+.bg-fuchsia-100.text-fuchsia-800,
+.bg-fuchsia-200.text-fuchsia-900,
+.bg-amber-100.text-amber-800,
+.bg-amber-200.text-amber-900,
+.bg-lime-100.text-lime-800,
+.bg-lime-200.text-lime-900,
+.bg-emerald-100.text-emerald-800,
+.bg-emerald-200.text-emerald-900,
+.bg-sky-100.text-sky-800,
+.bg-sky-200.text-sky-900 {
+  background-color: currentColor !important;
+  filter: saturate(1.5) brightness(1.2) !important;
+}
+
+.bg-blue-100.text-blue-800 { background-color: #0066ff !important; color: white !important; }
+.bg-blue-200.text-blue-900 { background-color: #0055ee !important; color: white !important; }
+.bg-red-100.text-red-800 { background-color: #ff0000 !important; color: white !important; }
+.bg-red-200.text-red-900 { background-color: #ee0000 !important; color: white !important; }
+.bg-yellow-100.text-yellow-800 { background-color: #ffcc00 !important; color: black !important; }
+.bg-yellow-200.text-yellow-900 { background-color: #ffbb00 !important; color: black !important; }
+.bg-green-100.text-green-800 { background-color: #00ff00 !important; color: black !important; }
+.bg-green-200.text-green-900 { background-color: #00ee00 !important; color: black !important; }
+.bg-purple-100.text-purple-800 { background-color: #9933ff !important; color: white !important; }
+.bg-purple-200.text-purple-900 { background-color: #8822ee !important; color: white !important; }
+.bg-pink-100.text-pink-800 { background-color: #ff69b4 !important; color: white !important; }
+.bg-pink-200.text-pink-900 { background-color: #ff5aa0 !important; color: white !important; }
+.bg-indigo-100.text-indigo-800 { background-color: #6666ff !important; color: white !important; }
+.bg-indigo-200.text-indigo-900 { background-color: #5555ee !important; color: white !important; }
+.bg-gray-100.text-gray-800 { background-color: #888888 !important; color: white !important; }
+.bg-gray-200.text-gray-900 { background-color: #777777 !important; color: white !important; }
+.bg-orange-100.text-orange-800 { background-color: #ff6600 !important; color: white !important; }
+.bg-orange-200.text-orange-900 { background-color: #ee5500 !important; color: white !important; }
+.bg-teal-100.text-teal-800 { background-color: #00cccc !important; color: white !important; }
+.bg-teal-200.text-teal-900 { background-color: #00bbbb !important; color: white !important; }
+.bg-cyan-100.text-cyan-800 { background-color: #00ccff !important; color: black !important; }
+.bg-cyan-200.text-cyan-900 { background-color: #00bbee !important; color: black !important; }
+.bg-rose-100.text-rose-800 { background-color: #ff3399 !important; color: white !important; }
+.bg-rose-200.text-rose-900 { background-color: #ee2288 !important; color: white !important; }
+.bg-violet-100.text-violet-800 { background-color: #aa44ff !important; color: white !important; }
+.bg-violet-200.text-violet-900 { background-color: #9933ee !important; color: white !important; }
+.bg-fuchsia-100.text-fuchsia-800 { background-color: #ff00ff !important; color: white !important; }
+.bg-fuchsia-200.text-fuchsia-900 { background-color: #ee00ee !important; color: white !important; }
+.bg-amber-100.text-amber-800 { background-color: #ffaa00 !important; color: black !important; }
+.bg-amber-200.text-amber-900 { background-color: #ee9900 !important; color: black !important; }
+.bg-lime-100.text-lime-800 { background-color: #99ff00 !important; color: black !important; }
+.bg-lime-200.text-lime-900 { background-color: #88ee00 !important; color: black !important; }
+.bg-emerald-100.text-emerald-800 { background-color: #00ff66 !important; color: black !important; }
+.bg-emerald-200.text-emerald-900 { background-color: #00ee55 !important; color: black !important; }
+.bg-sky-100.text-sky-800 { background-color: #0099ff !important; color: white !important; }
+.bg-sky-200.text-sky-900 { background-color: #0088ee !important; color: white !important; }
+
+.ilamy-calendar .rdp-dropdown_root [data-radix-popper-content-wrapper] {
+  background-color: #1e1e38 !important;
+  border: 1px solid rgba(255, 105, 180, 0.5) !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root [data-radix-popper-content-wrapper] > div {
+  background-color: #1e1e38 !important;
+  color: white !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root button {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.ilamy-calendar .rdp-dropdown_root button:hover {
+  background-color: rgba(255, 105, 180, 0.3) !important;
+}
+
+.ilamy-calendar [data-radix-popper-content-wrapper] {
+  background-color: #1e1e38 !important;
+}
+
+.ilamy-calendar [data-radix-popper-content-wrapper] > div {
+  background-color: #1e1e38 !important;
+  color: white !important;
+}
+
+.ilamy-calendar dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.ilamy-calendar input,
+.ilamy-calendar select,
+.ilamy-calendar textarea {
+  background-color: #16162a !important;
+  border: 1px solid rgba(255, 105, 180, 0.5) !important;
+  color: white !important;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.ilamy-calendar input:focus,
+.ilamy-calendar select:focus,
+.ilamy-calendar textarea:focus {
+  outline: none;
+  border-color: #ff69b4 !important;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+.ilamy-calendar label {
+  color: #ff69b4 !important;
+  font-weight: 500;
+}
+
+.ilamy-calendar button {
+  background-color: #ff69b4 !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ilamy-calendar button:hover {
+  background-color: #ff5aa0 !important;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
 }
